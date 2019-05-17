@@ -2,18 +2,45 @@
 	"name": "react-app",
 	"version": "0.1.0",
 	"private": true,
+	"main": "public/electron.js",
+	"homepage": "./",
+	"author": {
+		"name": "Luc Boettner",
+		"email": "email@luc.gg",
+		"url": "https://luc.gg"
+	},
+	"build": {
+		"appId": "gg.luc.tetris",
+		"productName": "tetris",
+		"copyright": "Copyright © 2019 ${author}",
+		"mac": {
+			"category": "public.app-category.utilities"
+		},
+		"files": [
+			"build/**/*",
+			"node_modules/**/*"
+		],
+		"directories": {
+			"buildResources": "assets"
+		}
+	},
 	"dependencies": {
 		"react": "^16.8.3",
 		"react-dom": "^16.8.3",
 		"react-redux": "^6.0.1",
 		"react-scripts": "^2.1.5",
-		"redux": "^4.0.1"
+		"redux": "^4.0.1",
+		"typescript": "^3.4.2"
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+		"postinstall": "electron-builder install-app-deps",
+		"preelectron-pack": "yarn build",
+		"electron-pack": "build -mw"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -23,5 +50,12 @@
 		"not dead",
 		"not ie <= 11",
 		"not op_mini all"
-	]
+	],
+	"devDependencies": {
+		"concurrently": "^4.1.0",
+		"electron": "^4.1.4",
+		"electron-builder": "^20.39.0",
+		"electron-is-dev": "^1.0.1",
+		"wait-on": "^3.2.0"
+	}
 }
